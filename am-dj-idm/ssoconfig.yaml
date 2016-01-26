@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Job
+metadata:
+  name: ssoconfig
+spec:
+  selector:
+    matchLabels:
+      app: ssoconfig
+  template:
+    metadata:
+      name: ssoconfig
+      labels:
+        app: ssoconfig
+    spec:
+      containers:
+      - name: config
+        image: travix/base-alpine-git:latest
+        volumeMounts:
+          - name: config
+            mountPath: /config
+        command: [ "git" ,"clone", "https://github.com/ForgeRock/stack-config" , "/config" ]
+      - name: ssoconfig
+        image: wstrange/ssoconfig-nightly:latest
+        volumeMounts:
+          - name: config
+            mountPath: /config
+      restartPolicy: Never
+      volumes:
+        - name: secrets
+          secret:
+        - name: config
+          emptyDir: {}

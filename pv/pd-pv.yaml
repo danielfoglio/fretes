@@ -1,0 +1,14 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: openam-pv-a
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  gcePersistentDisk:
+    # This GCE PD must already exist.
+    pdName: openam-disk-a
+    fsType: ext4

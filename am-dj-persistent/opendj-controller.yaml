@@ -1,0 +1,38 @@
+# We use a single OpenDJ instance as the config and CTS store for the cluster
+# This instance is ephemeral - just for demo purposes
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: opendj
+  name: opendj
+spec:
+  replicas: 1
+  selector:
+    name: opendj
+  template:
+    metadata:
+      labels:
+         name: opendj
+    spec:
+      containers:
+      - name: opendj
+        image: wstrange/opendj-nightly
+        ports:
+        - name: ldap
+          containerPort: 389
+          protocol: TCP
+        volumeMounts:
+          - name: secrets
+            mountPath: /secrets
+            readOnly: true
+          # - name: opendj-disk
+          #   mountPath: /opt/opendj/instances/instance1
+      volumes:
+        - name: secrets
+          secret:
+            secretName: fr-secrets
+        - name: opendj-disk
+          persistentVolumeClaim:
+            claimName: opendj-claim
+          

@@ -1,0 +1,24 @@
+# We use a single OpenDJ instance as the config and CTS store for the cluster
+# This instance is ephemeral - just for demo purposes
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: opendj
+  name: opendj
+spec:
+  replicas: 1
+  selector:
+    name: opendj
+  template:
+    metadata:
+      labels:
+         name: opendj
+    spec:
+      containers:
+      - name: opendj
+        image: wstrange/opendj-nightly:latest
+        ports:
+        - name: ldap
+          containerPort: 389
+          protocol: TCP

@@ -1,0 +1,43 @@
+# Job that loads policies
+apiVersion: extensions/v1beta1
+kind: Job
+metadata:
+  name: amconfig
+spec:
+  selector:
+    matchLabels:
+      app: amconfig
+  template:
+    metadata:
+      name: amconfig
+      labels:
+        app: amconfig
+    spec:
+      containers:
+      - name: config
+        image: travix/base-alpine-git:latest
+        volumeMounts:
+          - name: config
+            mountPath: /config
+        command: [ "git" ,"clone", "https://github.com/ForgeRock/stack-config" , "/config" ]
+      - name: amconfig
+        image: wstrange/amconfig:latest
+        env:
+          - name: OPENAM_URL
+            value: "http://openam:80/openam"
+          - name: OPENAM_USER
+            value: amadmin
+          - name: OPENAM_PW_FILE
+            value: /secrets/amadmin.pw
+        volumeMounts:
+          - name: config
+            mountPath: /config
+          - name: secrets
+            mountPath: /secrets
+      restartPolicy: Never
+      volumes:
+        - name: secrets
+          secret:
+            secretName: fr-secrets
+        - name: config
+          emptyDir: {}

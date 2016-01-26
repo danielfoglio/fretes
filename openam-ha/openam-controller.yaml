@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: openam-a
+  name: openam-a
+spec:
+  replicas: 1
+  selector:
+    name: openam-a
+  template:
+    metadata:
+      labels:
+         name: openam-a
+         site: site1
+    spec:
+      containers:
+      - name: openam-a
+        image: wstrange/openam-nightly:latest
+        env:
+          - name: "OPENAM_INSTANCE"
+            value: "openam01"
+        ports:
+        - name: openam
+          containerPort: 8080

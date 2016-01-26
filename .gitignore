@@ -1,0 +1,9 @@
+tmp/
+.vagrant/
+.settings/
+old/
+ldif/
+.project
+staging/
+.idea
+*.vdi

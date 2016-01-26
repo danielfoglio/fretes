@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: openam-b
+  name: openam-b
+spec:
+  replicas: 1
+  selector:
+    name: openam-b
+  template:
+    metadata:
+      labels:
+         name: openam-b
+         site: site1
+    spec:
+      containers:
+      - name: openam-b
+        image: wstrange/openam-nightly
+        ports:
+        - name: openam
+          containerPort: 8080
+          protocol: TCP

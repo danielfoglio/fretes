@@ -1,0 +1,7 @@
+# Example of creating a k8 namespace
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: tenant1
+  labels:
+    name: tenant1

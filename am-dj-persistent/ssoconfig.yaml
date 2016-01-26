@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Job
+metadata:
+  name: ssoconfig
+spec:
+  selector:
+    matchLabels:
+      app: ssoconfig
+  template:
+    metadata:
+      name: ssoconfig
+      labels:
+        app: ssoconfig
+    spec:
+      containers:
+      - name: ssoconfig
+        image: wstrange/ssoconfig-nightly
+      restartPolicy: Never

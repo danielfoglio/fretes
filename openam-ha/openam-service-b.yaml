@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: openam-svc-b
+  label:
+    name: openam-svc-b
+spec:
+  ports:
+    - port: 80
+      targetPort: openam
+      protocol: "TCP"
+      name: openam-b
+  selector:
+    name: openam-b
+# If for some reason you need to admin the instance externally
+# uncomment this
+#  createExternalLoadBalancer: true

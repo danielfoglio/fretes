@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openam
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /openam/*
+        backend:
+          serviceName: openam-svc
+          servicePort: 80
+      - path: /apache/*
+        backend:
+          serviceName: apache-svc
+          servicePort: 80

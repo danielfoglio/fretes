@@ -1,0 +1,21 @@
+#!/bin/bash 
+# Run ansible playbook for openam
+# See http://docs.ansible.com/intro_getting_started.html#host-key-checking
+export ANSIBLE_HOST_KEY_CHECKING=False
+
+SCRIPTPATH="$(cd "$(dirname "$0")"; pwd -P)"
+
+# Uncomment to debug
+DEBUG=-vvvv
+
+# Uncomment the correct env var here for your target
+
+# Default inventory is for vagrant
+
+INVENTORY=../../etc/hosts
+export ANSIBLE_PATH
+export ANSIBLE_LIBRARY=../../ansible/library
+
+
+ansible-playbook  $DEBUG -i $INVENTORY openam.yml
+

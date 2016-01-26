@@ -1,0 +1,11 @@
+imports:
+- path: opendj.jinja
+- path: secrets.jinja
+
+resources:
+- name: secrets
+  type: secrets.jinja
+- name: opendj
+  type: opendj.jinja
+  properties:
+    image: wstrange/opendj-nightly:latest

@@ -8,6 +8,6 @@ metadata:
 spec:
   containers:
   - name: openidm
-    image: wstrange/openidm-nightly
+    image: forgerock/openidm
     ports:
     - containerPort: 8080

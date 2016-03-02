@@ -4,13 +4,14 @@ metadata:
   name: openam
 spec:
   rules:
-  - http:
+  - host: openam.example.com
+    http:
       paths:
-      - path: /openam/*
+      - path: /openam
         backend:
-          serviceName: openam-svc
+          serviceName: openam
           servicePort: 80
-      - path: /apache/*
+      - path: /apache
         backend:
           serviceName: apache-svc
           servicePort: 80

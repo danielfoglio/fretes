@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/tmp/data01"
+    path: "/mnt/data01"
   persistentVolumeReclaimPolicy: Recycle
 
 ---
@@ -22,6 +22,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/tmp/data02"
+    path: "/mnt/data02"
   persistentVolumeReclaimPolicy: Recycle
-

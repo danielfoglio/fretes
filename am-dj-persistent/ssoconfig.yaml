@@ -13,6 +13,20 @@ spec:
         app: ssoconfig
     spec:
       containers:
+      - name: config
+        image: travix/base-alpine-git:latest
+        volumeMounts:
+          - name: config
+            mountPath: /config
+        command: [ "git" ,"clone", "https://github.com/ForgeRock/stack-config" , "/config" ]
       - name: ssoconfig
-        image: wstrange/ssoconfig-nightly
+        image: wstrange/ssoconfig-nightly:latest
+        volumeMounts:
+          - name: config
+            mountPath: /config
       restartPolicy: Never
+      volumes:
+        - name: secrets
+          secret:
+        - name: config
+          emptyDir: {}

@@ -2,9 +2,8 @@
 
 Strategies for OpenAM bootstrapping
 
-Currently mounting ~/openam as a Volume.
+Currently mounting ~/openam as a persistent Volume.
 Consider: Create contents of ~/openam on the fly - using ENV vars
-
 
 
 Todos:
@@ -12,9 +11,6 @@ Todos:
       (this aligns with the strategy that persistence services are probably going to live outside of Docker)
    - prototype a script that creates ~/openam using ENV vars and secrets (keystore.jks may be an issue)
    - Create  Apache + policy agent Docker image. Should be able to dynamically configure
-   - Create OpenIG image. Set up dynamic reverse proxy config
-   - Create OpenIDM image
-
 # Misc Notes:
 
 
@@ -51,3 +47,11 @@ cGy/F2Zuj8XJJpuQRSE6PtQqBuDEHjjmOQJ0rV/r8mO1ZCtHRhpZ5zYRjhRC9eCbjx9VrFax0JDC
 /FfwWigmrW0Y0Q==
 -----END CERTIFICATE-----
 
+
+Complete example needed for David (to replace Fred)
+- OpenAM + DJ, with persistence
+- Sample users. Load from LDIF
+- Sample agent  (ssoadm, or wait for SMS REST API)
+- Sample policies (load with REST API, or xacml 3 import / export)
+- Sample OAuth 2.0 provider
+-

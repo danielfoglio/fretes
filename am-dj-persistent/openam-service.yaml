@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: openam
 spec:
-  type: NodePort
+  #type: NodePort
   #type: ClusterIP
   #type: LoadBalancer
   ports:
     - port: 80
-      targetPort: openam
-      nodePort: 30080
+      targetPort: 8080
+  #    nodePort: 30080
   selector:
     site: site1

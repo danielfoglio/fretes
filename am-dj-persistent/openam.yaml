@@ -11,7 +11,7 @@ spec:
          site: site1
     spec:
       containers:
-      - name: openam-a
+      - name: openam
         image: forgerock/openam
         #imagePullPolicy: Always
         ports:

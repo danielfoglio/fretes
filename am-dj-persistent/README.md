@@ -37,6 +37,15 @@ one.
 If you are running on Google Container engine, or possibly AWS, an ingress
 will already be present as part of the environment.
 
+# Seeing the results
+The example as is- assumes openam is at http://openam.example.com:80/openam
+
+Add the IP of your ingress to your /etc/hosts
+
+If you are on Kube-solo-osx you can find your IP by bringing
+up the "fleet-ui" in the menu - and looking at the IP.
+You can also ssh into the VM and do an ifconfig -a to get eth0
+
 
 # Todo
 

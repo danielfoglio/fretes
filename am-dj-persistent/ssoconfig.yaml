@@ -13,12 +13,17 @@ spec:
         app: ssoconfig
     spec:
       containers:
-      - name: config
-        image: travix/base-alpine-git:latest
+      - name: git-sync
+        image: gcr.io/google_containers/git-sync
+        imagePullPolicy: Always
         volumeMounts:
-          - name: config
-            mountPath: /config
-        command: [ "git" ,"clone", "https://github.com/ForgeRock/stack-config" , "/config" ]
+        - name: config
+          mountPath: /config
+        env:
+        - name: GIT_SYNC_REPO
+          value: https://github.com/ForgeRock/stack-config.git
+        - name: GIT_SYNC_DEST
+          value: /config
       - name: ssoconfig
         image: wstrange/ssoconfig-nightly:latest
         volumeMounts:
@@ -28,5 +33,13 @@ spec:
       volumes:
         - name: secrets
           secret:
+            secretName: fr-secrets
+        # todo: possibly replace git sidecar with this
+        # currently gitRepo has issues on CoreOS - due to kubelet not
+        # finding the git command
+        # - name: config
+        #   gitRepo:
+        #     repository: git@github.com:ForgeRock/stack-config.git
+        #     revision: HEAD
         - name: config
           emptyDir: {}

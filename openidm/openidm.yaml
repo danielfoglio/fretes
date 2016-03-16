@@ -7,7 +7,28 @@ metadata:
   name: openidm
 spec:
   containers:
+  # sidecar to fetch our config from git
+  - name: git-sync
+    image: gcr.io/google_containers/git-sync
+    imagePullPolicy: Always
+    volumeMounts:
+    - name: idmconf
+      mountPath: /config
+    env:
+    - name: GIT_SYNC_REPO
+      value: https://github.com/ForgeRock/stack-config.git
+    - name: GIT_SYNC_DEST
+      value: /config
   - name: openidm
-    image: forgerock/openidm
+    image: forgerock/openidm:nightly
+    env:
+      - name: OPENIDM_PROJECT_DIR
+        value: /config/openidm/conf
     ports:
-    - containerPort: 8080
+      - containerPort: 8080
+    volumeMounts:
+      - name: idmconf
+        mountPath: /config
+  volumes:
+    - name: idmconf
+      emptyDir: {}

@@ -7,3 +7,4 @@ ldif/
 staging/
 .idea
 *.vdi
+scratch.sh

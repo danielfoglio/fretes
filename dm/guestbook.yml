@@ -1,0 +1,13 @@
+# Sample test of DM to ensure it is working correctly
+resources:
+- name: frontend
+  type: github.com/kubernetes/application-dm-templates/common/replicatedservice:v1
+  properties:
+    service_port: 80
+    container_port: 80
+    external_service: true
+    replicas: 2
+    image: gcr.io/google_containers/example-guestbook-php-redis:v3
+- name: redis
+  type: github.com/kubernetes/application-dm-templates/storage/redis:v1
+  properties: null

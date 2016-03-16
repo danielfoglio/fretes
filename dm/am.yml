@@ -1,0 +1,27 @@
+# Sample test of DM to ensure it is working correctly
+resources:
+# - name: am
+#   type: github.com/kubernetes/application-dm-templates/common/replicatedservice:v2
+#   properties:
+#     service_port: 80
+#     container_port: 8080
+#     external_service: true
+#     replicas: 1
+#     image: forgerock/openam:latest
+#     volumes:
+#       -
+- name: dj
+  type: github.com/kubernetes/application-dm-templates/common/replicatedservice:v2
+  properties:
+    service_port: 389
+    container_port: 389
+    external_service: true
+    replicas: 1
+    image: forgerock/opendj:latest
+    volumes:
+      - mount_path: /opt/opendj/instances/instance1
+        nfs:
+          server: 192.168.64.1
+          path: /Users/warren/tmp/scratch/data01
+          readOnly: false
+          

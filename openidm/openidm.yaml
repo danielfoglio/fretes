@@ -1,4 +1,19 @@
 # Run OpenIDM on k8
+# Service definition
+apiVersion: v1
+kind: Service
+metadata:
+  name: openidm
+spec:
+  selector:
+    name: openidm
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30100
+
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -14,7 +29,7 @@ spec:
       # sidecar to fetch our config from git
       - name: git-sync
         image: gcr.io/google_containers/git-sync
-        imagePullPolicy: Always
+        #imagePullPolicy: Always
         volumeMounts:
         - name: idmconf
           mountPath: /config
@@ -27,9 +42,10 @@ spec:
         image: forgerock/openidm:nightly
         env:
           - name: OPENIDM_PROJECT_DIR
-            value: /config/openidm/conf
+            value: /config/openidm/
         ports:
           - containerPort: 8080
+        command: [ "/opt/openidm/startup.sh", "-p", "/config/openidm/"]
         volumeMounts:
           - name: idmconf
             mountPath: /config

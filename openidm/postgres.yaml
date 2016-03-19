@@ -1,4 +1,19 @@
 # Postgres DB for OpenIDM
+
+ # Service definition
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: postgres
+ spec:
+   selector:
+     name: idmrepo
+   ports:
+     - port: 5432
+       targetPort: 5432
+       name: postgres
+---
+# Mount a persistent volume if you want the data to persist
 apiVersion: v1
 kind: Pod
 metadata:
@@ -18,16 +33,12 @@ spec:
         value: openidm
       - name: POSTGRES_USER
         value: openidm
----
-# Service definition
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres
-spec:
-  selector:
-    name: idmrepo
-  ports:
-    - port: 5432
-      targetPort: 5432
-      name: postgres
+    volumeMounts:
+      - name: pgdata
+        mountPath: /var/lib/postgresql/data/pgdata
+  # This works for a single node only
+  # To clean up the data log in to the host and rm -fr /var/tmp/pgdata
+  volumes:
+    - name: pgdata
+      hostPath:
+        path: /var/tmp/pgdata
